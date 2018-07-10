@@ -20,7 +20,7 @@ if (TYPO3_MODE === 'BE') {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
         'web',
         'txtemplavoilaplusLayout',
-        'top',
+        'after:layout',
         '',
         [
             'access' => 'user,group',
