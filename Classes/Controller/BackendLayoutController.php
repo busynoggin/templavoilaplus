@@ -1707,13 +1707,14 @@ class BackendLayoutController extends \TYPO3\CMS\Backend\Module\BaseScriptClass
         }
 
         if ($flagRenderBeLayout) {
+            $function = function ($matches) {
+                return $GLOBALS["LANG"]->sL($matches[1], 1);
+            };
+
             //replace lang markers
             $beTemplate = preg_replace_callback(
                 "/###(LLL:[\w-\/:]+?\.xml\:[\w-\.]+?)###/",
-                create_function(
-                    '$matches',
-                    'return $GLOBALS["LANG"]->sL($matches[1], 1);'
-                ),
+                $function,
                 $beTemplate
             );
 
