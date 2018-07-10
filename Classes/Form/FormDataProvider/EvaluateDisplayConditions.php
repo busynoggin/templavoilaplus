@@ -269,29 +269,31 @@ class EvaluateDisplayConditions
                     );
                 }
 
-                foreach ($sheetConfiguration['ROOT']['el'] as $flexField => $flexConfiguration) {
-                    // Unset per flex field
-                    if (is_array($flexConfiguration['displayCond'])) {
-                        unset(
-                            $result['processedTca']['columns'][$columnName]['config']['ds']
-                                ['sheets'][$sheetName]['ROOT']
-                                ['el'][$flexField]['displayCond']
-                        );
-                    }
+                if (is_array($sheetConfiguration['ROOT']['el'])) {
+                    foreach ($sheetConfiguration['ROOT']['el'] as $flexField => $flexConfiguration) {
+                        // Unset per flex field
+                        if (is_array($flexConfiguration['displayCond'])) {
+                            unset(
+                                $result['processedTca']['columns'][$columnName]['config']['ds']
+                                    ['sheets'][$sheetName]['ROOT']
+                                    ['el'][$flexField]['displayCond']
+                            );
+                        }
 
-                    if (isset($flexConfiguration['children'])) {
-                        foreach ($flexConfiguration['children'] as $containerInstanceName => $containerDataStructure) {
-                            if (isset($containerDataStructure['el']) && is_array($containerDataStructure['el'])) {
-                                foreach ($containerDataStructure['el'] as $containerElementName => $containerElementConfiguration) {
-                                    // Unset per container
-                                    if (is_array($containerElementConfiguration['displayCond'])) {
-                                        unset(
-                                            $result['processedTca']['columns'][$columnName]['config']['ds']
-                                                ['sheets'][$sheetName]['ROOT']
-                                                ['el'][$flexField]
-                                                ['children'][$containerInstanceName]
-                                                ['el'][$containerElementName]['displayCond']
-                                        );
+                        if (isset($flexConfiguration['children'])) {
+                            foreach ($flexConfiguration['children'] as $containerInstanceName => $containerDataStructure) {
+                                if (isset($containerDataStructure['el']) && is_array($containerDataStructure['el'])) {
+                                    foreach ($containerDataStructure['el'] as $containerElementName => $containerElementConfiguration) {
+                                        // Unset per container
+                                        if (is_array($containerElementConfiguration['displayCond'])) {
+                                            unset(
+                                                $result['processedTca']['columns'][$columnName]['config']['ds']
+                                                    ['sheets'][$sheetName]['ROOT']
+                                                    ['el'][$flexField]
+                                                    ['children'][$containerInstanceName]
+                                                    ['el'][$containerElementName]['displayCond']
+                                            );
+                                        }
                                     }
                                 }
                             }
